@@ -1,0 +1,2 @@
+# SChat
+Secure messaging app
