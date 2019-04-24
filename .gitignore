@@ -29,14 +29,40 @@ proguard/
 # Eclipse Metadata
 .metadata/
 
-# Mac OS X clutter
-*.DS_Store
-
-# Windows clutter
-Thumbs.db
 
 # Intellij IDEA (see https://intellij-support.jetbrains.com/entries/23393067)
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/datasources.xml
 .idea/dataSources.ids
+.idea/libraries/
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+*.iml
+
+# Built application files
+/*/build/
+
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
+
+
+
+# Signing files
+.signing/
+
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
