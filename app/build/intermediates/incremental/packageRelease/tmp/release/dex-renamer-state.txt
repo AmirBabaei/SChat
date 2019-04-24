@@ -1,4 +1,0 @@
-#Tue Apr 23 16:43:33 PDT 2019
-base.0=C\:\\Users\\Litod\\AndroidStudioProjects\\SChat\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\out
-path.0=classes.dex
-renamed.0=classes.dex
