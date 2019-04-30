@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1024073310840",
+    "firebase_url": "https://schat-42436.firebaseio.com",
+    "project_id": "schat-42436",
+    "storage_bucket": "schat-42436.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024073310840:android:ae65c8ae6c70b8d2",
+        "android_client_info": {
+          "package_name": "com.example.schat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024073310840-osaoblmhj1ri71e7qnk4vl6o5p9057da.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.schat",
+            "certificate_hash": "ee98a7c61f0a19f56533680be94e59ded1f5a9a4"
+          }
+        },
+        {
+          "client_id": "1024073310840-qrkuqur525ji05p695j0oi7d6l3vbjqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv_to6peA34jYOGrUET-99_dVi6SkuIto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024073310840-qrkuqur525ji05p695j0oi7d6l3vbjqt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
