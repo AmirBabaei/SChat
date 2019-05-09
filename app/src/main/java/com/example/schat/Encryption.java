@@ -13,7 +13,23 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+
+
 //For now hard coded to AES can be more general
+
+/* Ex
+        String s = "Hello world", s_encrypted = null, s_decrypted = null;
+        try {
+            s_encrypted = Encryption.encrypt(s);
+            s_decrypted = Encryption.decrypt(s_encrypted);
+        }
+       catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("main-activity", s);
+        Log.d("main-activity", s_encrypted);
+        Log.d("main-activity", s_decrypted);
+ */
 public  class Encryption
 {
     private static final int pswdIterations = 10;
