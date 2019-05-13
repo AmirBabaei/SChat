@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
         mLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(m)
+                if(mLoginEmail != null && mPassword != null)
+                {
+
+                }
             }
         });
 
