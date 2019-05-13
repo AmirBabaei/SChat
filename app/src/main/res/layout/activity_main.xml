@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter Phone Number"
-        android:id="@+id/phoneNumher"
+        android:id="@+id/phoneNumber"
         />
     <EditText
         android:layout_width="wrap_content"
@@ -28,6 +28,25 @@
         android:id="@+id/send"
         />
 
+    <EditText
+        android:id="@+id/Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Email" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/Email_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login with Email" />
 
 
 </LinearLayout>

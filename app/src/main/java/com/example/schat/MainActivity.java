@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mPhoneNumber, mCode;
     private Button mSend;
+    private EditText mEmail, mPassword;
+    private Button mLoginEmail;
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
@@ -37,10 +39,27 @@ public class MainActivity extends AppCompatActivity {
 
         userIsLoggedIn();
 
-        mPhoneNumber = findViewById(R.id.phoneNumher);
+        //EMAIL LOGIN STUFF
+        mEmail = findViewById(R.id.Email);
+        mPassword = findViewById(R.id.password);
+        mLoginEmail = findViewById(R.id.Email_btn);
+
+        mLoginEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(m)
+            }
+        });
+
+
+
+
+
+        mPhoneNumber = findViewById(R.id.phoneNumber);
         mCode = findViewById(R.id.code);
 
         mSend = findViewById(R.id.send);
+
 
         mSend.setOnClickListener(new View.OnClickListener()
         {
