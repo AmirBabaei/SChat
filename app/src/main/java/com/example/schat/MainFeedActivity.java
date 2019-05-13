@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.Manifest;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainFeedActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +18,19 @@ public class MainFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_feed);
 
-        Button userLogout = findViewById(R.id.logout);
+        Button mLogout = findViewById(R.id.logout);
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return;
+            }
+        });
+
         Button mFindUser = findViewById(R.id.find_user);
 
         mFindUser.setOnClickListener(new View.OnClickListener() {
