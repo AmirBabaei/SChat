@@ -79,7 +79,7 @@ import java.util.concurrent.TimeUnit;
                  super.onCodeSent(s , forceResendingToken);
                  verificationId =  s;
                  Toast.makeText(PhoneLogin.this, "Sent verification code", Toast.LENGTH_SHORT).show();
-                 //mSend.setText("Verify Code");
+                 sendVerificationCode.setText("Verify Code");
              }
          };
      }
