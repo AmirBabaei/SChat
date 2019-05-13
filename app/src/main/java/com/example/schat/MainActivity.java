@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        mPhoneNumber = findViewById(R.id.phoneNumber);
+        mPhoneNumber = findViewById(R.id.phoneNumberEntry);
         mCode = findViewById(R.id.code);
 
         mSend = findViewById(R.id.send);
