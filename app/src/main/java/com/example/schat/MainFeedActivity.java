@@ -64,7 +64,7 @@ public class MainFeedActivity extends AppCompatActivity {
 
         getPermissions();
         initializeRecyclerView();
-        //getUserChatList();
+        getUserChatList();
    }
     private void getUserChatList(){
 
