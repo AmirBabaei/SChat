@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 
 public class WelcomeScreen extends AppCompatActivity {
+    ImageView logoDisplay = null;
     private RadioGroup welcomeScreenButtons = null;
     RadioButton phone = null;
     RadioButton email = null;
@@ -25,10 +27,12 @@ public class WelcomeScreen extends AppCompatActivity {
     }
     private void setup()
     {
-
+        logoDisplay = findViewById(R.id.logoDisplay);
         welcomeScreenButtons = findViewById(R.id.welcomeScreenButtons);
         phone = findViewById(R.id.phoneAuthenticate);
         email = findViewById(R.id.emailAuthenticate);
+
+        logoDisplay.setImageResource(R.drawable.logo2);
         phone.setText("Use a phone number");
         email.setText("Use an email address");
         welcomeScreenButtons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

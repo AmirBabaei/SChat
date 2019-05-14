@@ -6,21 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeScreen">
 
-    <RadioGroup
-        android:id="@+id/welcomeScreenButtons"
-        android:layout_width="233dp"
-        android:layout_height="233dp"
+    <ImageView
+        android:id="@+id/logoDisplay"
+        android:layout_width="291dp"
+        android:layout_height="264dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383">
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <RadioGroup
+        android:id="@+id/welcomeScreenButtons"
+        android:layout_width="277dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoDisplay"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:textColor="#10416B"
+        android:textColorLink="#10416B"
+        android:textSize="24sp"
+        android:textStyle="bold">
 
         <RadioButton
             android:id="@+id/phoneAuthenticate"
