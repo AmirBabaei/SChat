@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PhoneLogin"></activity>
-        <activity android:name=".FindUserActivity" />
+        <activity android:name=".User.FindUserActivity" />
         <activity android:name=".MainFeedActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".WelcomeScreen">

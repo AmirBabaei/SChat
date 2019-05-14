@@ -128,7 +128,7 @@ import java.util.concurrent.TimeUnit;
 
                              }
                          }
-                         //userIsLoggedIn();
+
                      }
                  });
      }

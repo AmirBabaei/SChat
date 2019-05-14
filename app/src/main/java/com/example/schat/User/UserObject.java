@@ -1,4 +1,4 @@
-package com.example.schat;
+package com.example.schat.User;
 /*
 public class UserObject {
     private String name;

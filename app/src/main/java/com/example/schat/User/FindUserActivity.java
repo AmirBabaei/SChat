@@ -1,4 +1,4 @@
-package com.example.schat;
+package com.example.schat.User;
 
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
 import android.widget.LinearLayout;
 
+import com.example.schat.Utils.CountryToPhonePrefix;
+import com.example.schat.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,7 +83,8 @@ public class FindUserActivity extends AppCompatActivity {
                         if(childSnapshot.child("public_key").getValue()!=null)
                             public_key = childSnapshot.child("public_key").getValue().toString();
 
-
+                        // This display a user name instead of a phone number
+                        // getKey is the firebase uid
                         UserObject user = new UserObject(childSnapshot.getKey(), public_key, phone);
                         if (public_key.equals(phone))
                             for(UserObject contactIterator : contactList){

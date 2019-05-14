@@ -1,4 +1,4 @@
-package com.example.schat;
+package com.example.schat.Utils;
 
 /*public class CountryToPhonePrefix {
 }*/
