@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                                         mUserDB.updateChildren(userMap);
 
                                     }
+                                userIsLoggedIn();
                             }
 
                             @Override
@@ -140,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                   // userIsLoggedIn(); This what the only thing in the above if initially. Not sure why.
                 }
             }
         });

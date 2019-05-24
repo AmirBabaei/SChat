@@ -64,7 +64,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
 
     public class ChatListViewHolder extends RecyclerView.ViewHolder{
         public TextView chatTitle;
-        LinearLayout layout;
+        public LinearLayout layout;
         public ChatListViewHolder(View view){
             super(view);
             chatTitle = view.findViewById(R.id.chatTitle);
