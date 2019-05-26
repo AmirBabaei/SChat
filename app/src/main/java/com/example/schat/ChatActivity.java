@@ -1,6 +1,7 @@
 package com.example.schat;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +16,16 @@ import android.widget.LinearLayout;
 import com.example.schat.Chat.MediaAdapter;
 import com.example.schat.Chat.MessageAdapter;
 import com.example.schat.Chat.MessageObject;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +42,8 @@ public class ChatActivity extends AppCompatActivity {
 
     int PICK_IMAGE_INTENT = 1;
     ArrayList<String> mediaUriList = new ArrayList<>();
-
+    ArrayList<String> mediaIdList = new ArrayList<>();
+    EditText mMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,19 +119,68 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+    int mediaPosition = 0;
     private void sendMessage()
     {
-        EditText mMessage =  findViewById(R.id.messageInput);
-        if(!mMessage.getText().toString().isEmpty()){
-            //DatabaseReference newMessageDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
-            DatabaseReference newMessageDb = chatMessagesDb.push();
-            Map newMessageMap = new HashMap<>();
-            newMessageMap.put("text", mMessage.getText().toString());
+        mMessage =  findViewById(R.id.messageInput);
+        //if(!mMessage.getText().toString().isEmpty()){
+            String messageId = chatMessagesDb.push().getKey();
+            final DatabaseReference newMessageDb = chatMessagesDb.child(messageId);
+            final Map newMessageMap = new HashMap<>();
+
             newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
-            newMessageDb.updateChildren(newMessageMap);
-        }
+            if(!mMessage.getText().toString().isEmpty())
+            {
+                newMessageMap.put("text", mMessage.getText().toString());
+            }
+
+
+            if(!mediaUriList.isEmpty()){
+                for(String mediaUri : mediaUriList){
+                    String mediaId = newMessageDb.child("media").push().getKey();
+                    mediaIdList.add(mediaId);
+                    final StorageReference filePath = FirebaseStorage.getInstance().getReference().child("chat").child(messageId).child(mediaId);
+
+                    UploadTask uploadtask = filePath.putFile(Uri.parse(mediaUri));
+
+                    uploadtask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    newMessageMap.put("/media/" + mediaIdList.get(mediaPosition) + "/", uri.toString());
+                                    mediaPosition++;
+                                    if(mediaPosition == mediaUriList.size())
+                                    {
+                                        updateDatabaseWithNewMessage(newMessageDb, newMessageMap);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+            else
+            {
+                if(!mMessage.getText().toString().isEmpty())
+                {
+                    updateDatabaseWithNewMessage(newMessageDb, newMessageMap);
+                }
+            }
+
         mMessage.setText(null);
     }
+
+    private void updateDatabaseWithNewMessage(DatabaseReference dbReference, Map newMessageMap)
+    {
+        dbReference.updateChildren(newMessageMap);
+        mMessage.setText(null);
+        mediaIdList.clear();
+        mediaUriList.clear();
+        mediaAdapter.notifyDataSetChanged();
+    }
+
     private void initializeMessage() {
         messageList = new ArrayList<>();
         messageListView = findViewById(R.id.messageList);
