@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
                         for(DataSnapshot mediaSnapShot : dataSnapshot.child("media").getChildren())
                         {
                             mediaUrlList.add(mediaSnapShot.getValue().toString());
+                            Log.d("GOT IMAGE", mediaSnapShot.getValue().toString());
                         }
                     }
 
@@ -132,7 +134,6 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage()
     {
         mMessage =  findViewById(R.id.messageInput);
-        //if(!mMessage.getText().toString().isEmpty()){
             String messageId = chatMessagesDb.push().getKey();
             final DatabaseReference newMessageDb = chatMessagesDb.child(messageId);
             final Map newMessageMap = new HashMap<>();
@@ -146,7 +147,7 @@ public class ChatActivity extends AppCompatActivity {
 
             if(!mediaUriList.isEmpty()){
                 for(String mediaUri : mediaUriList){
-                    String mediaId = newMessageDb.child("media").push().getKey();
+                    final String mediaId = newMessageDb.child("media").push().getKey();
                     mediaIdList.add(mediaId);
                     final StorageReference filePath = FirebaseStorage.getInstance().getReference().child("chat").child(messageId).child(mediaId);
 
@@ -159,6 +160,7 @@ public class ChatActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     newMessageMap.put("/media/" + mediaIdList.get(mediaPosition) + "/", uri.toString());
+                                    Log.d("IMAGE INSERTED", mediaId);
                                     mediaPosition++;
                                     if(mediaPosition == mediaUriList.size())
                                     {
