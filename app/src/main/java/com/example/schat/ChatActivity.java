@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,12 +85,22 @@ public class ChatActivity extends AppCompatActivity {
                 if(dataSnapshot.exists())
                 {
                     String  text = "", creatorID = "";
+
+                    ArrayList<String> mediaUrlList = new ArrayList<>();
                     if(dataSnapshot.child("text").getValue() != null)
                         text = dataSnapshot.child("text").getValue().toString();
                     if(dataSnapshot.child("creator").getValue() != null)
                         creatorID = dataSnapshot.child("creator").getValue().toString();
+                    if(dataSnapshot.child("media").getChildrenCount() > 0)
+                    {
+                        for(DataSnapshot mediaSnapShot : dataSnapshot.child("media").getChildren())
+                        {
+                            mediaUrlList.add(mediaSnapShot.getValue().toString());
+                            Log.d("GOT IMAGE", mediaSnapShot.getValue().toString());
+                        }
+                    }
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList);
                     messageList.add(mMessage);
                     messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
                     messageAdapter.notifyDataSetChanged();
@@ -123,7 +134,6 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage()
     {
         mMessage =  findViewById(R.id.messageInput);
-        //if(!mMessage.getText().toString().isEmpty()){
             String messageId = chatMessagesDb.push().getKey();
             final DatabaseReference newMessageDb = chatMessagesDb.child(messageId);
             final Map newMessageMap = new HashMap<>();
@@ -137,7 +147,7 @@ public class ChatActivity extends AppCompatActivity {
 
             if(!mediaUriList.isEmpty()){
                 for(String mediaUri : mediaUriList){
-                    String mediaId = newMessageDb.child("media").push().getKey();
+                    final String mediaId = newMessageDb.child("media").push().getKey();
                     mediaIdList.add(mediaId);
                     final StorageReference filePath = FirebaseStorage.getInstance().getReference().child("chat").child(messageId).child(mediaId);
 
@@ -150,6 +160,7 @@ public class ChatActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     newMessageMap.put("/media/" + mediaIdList.get(mediaPosition) + "/", uri.toString());
+                                    Log.d("IMAGE INSERTED", mediaId);
                                     mediaPosition++;
                                     if(mediaPosition == mediaUriList.size())
                                     {
