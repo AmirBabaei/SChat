@@ -1,5 +1,6 @@
 package com.example.schat.Utils;
-
+// We used this code from stack overflow
+// No copyright, https://stackoverflow.com/questions/10772329/how-to-get-country-phone-prefix-from-iso
 /*public class CountryToPhonePrefix {
 }*/
 import java.util.HashMap;

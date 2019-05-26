@@ -105,7 +105,8 @@ public class FindUserActivity extends AppCompatActivity {
         });
 
     }
-
+//Gets the digit that goes before a phone number based on your country for contacts that don't already have it
+//This is because users in our database must add their country code to signup.
     private String getCountryISO(){
 
         String iso = null;
