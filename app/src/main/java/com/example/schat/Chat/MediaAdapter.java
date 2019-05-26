@@ -14,7 +14,7 @@ import com.example.schat.R;
 
 import java.util.ArrayList;
 
-public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHolder{
+public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHolder>{
     ArrayList<String>mediaList;
     Context context;
     public MediaAdapter(Context context, ArrayList<String> mediaList){

@@ -144,7 +144,7 @@ public class ChatActivity extends AppCompatActivity {
         mediaListLayourManager = new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false);
         mediaListView.setLayoutManager(mediaListLayourManager);
         mediaAdapter = new MediaAdapter(getApplicationContext(), mediaUriList);
-        mediaListView.setAdapter(messageAdapter);
+        mediaListView.setAdapter(mediaAdapter);
     }
     private void openGallery() {
         Intent intent = new Intent();
