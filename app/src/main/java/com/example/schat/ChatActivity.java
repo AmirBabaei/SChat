@@ -84,12 +84,21 @@ public class ChatActivity extends AppCompatActivity {
                 if(dataSnapshot.exists())
                 {
                     String  text = "", creatorID = "";
+
+                    ArrayList<String> mediaUrlList = new ArrayList<>();
                     if(dataSnapshot.child("text").getValue() != null)
                         text = dataSnapshot.child("text").getValue().toString();
                     if(dataSnapshot.child("creator").getValue() != null)
                         creatorID = dataSnapshot.child("creator").getValue().toString();
+                    if(dataSnapshot.child("media").getChildrenCount() > 0)
+                    {
+                        for(DataSnapshot mediaSnapShot : dataSnapshot.child("media").getChildren())
+                        {
+                            mediaUrlList.add(mediaSnapShot.getValue().toString());
+                        }
+                    }
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList);
                     messageList.add(mMessage);
                     messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
                     messageAdapter.notifyDataSetChanged();

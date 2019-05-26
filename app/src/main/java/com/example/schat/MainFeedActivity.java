@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.example.schat.Chat.ChatObject;
 import com.example.schat.User.FindUserActivity;
 import com.example.schat.Chat.ChatListAdapter;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,7 @@ public class MainFeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_feed);
+        Fresco.initialize(this);
 
         // contact search
         Button mFindUser = findViewById(R.id.find_user);
