@@ -1,5 +1,6 @@
 package com.example.schat;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.schat.Chat.ChatListAdapter;
-import com.example.schat.Chat.ChatObject;
+import com.example.schat.Chat.MediaAdapter;
+import com.example.schat.Chat.MessageAdapter;
+import com.example.schat.Chat.MessageObject;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -26,19 +27,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
-    private RecyclerView messageListView;
-    private RecyclerView.Adapter messageAdapter;
-    private RecyclerView.LayoutManager messageListLayoutManager;
+    private RecyclerView messageListView, mediaListView;
+    private RecyclerView.Adapter messageAdapter, mediaAdapter;
+    private RecyclerView.LayoutManager messageListLayoutManager, mediaListLayourManager;
 
     ArrayList<MessageObject> messageList;
     String chatID;
     DatabaseReference chatMessagesDb;
+
+    int PICK_IMAGE_INTENT = 1;
+    ArrayList<String> mediaUriList = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         chatID = getIntent().getExtras().getString("chatID");
         chatMessagesDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID);
+        Button addMedia = findViewById(R.id.addMedia);
         Button send = findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +54,20 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
-        initializeRecyclerView();
+        addMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                openGallery();
+            }
+
+
+        });
+        initializeMessage();
+        initializeMedia();
         getChatMessages();
     }
+
     private void getChatMessages()
     {
         chatMessagesDb.addChildEventListener(new ChildEventListener()
@@ -67,7 +85,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text);
                     messageList.add(mMessage);
-                    messageListLayoutManager.scrollToPosition(messageList.size()-1);
+                    messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
                     messageAdapter.notifyDataSetChanged();
                 }
             }
@@ -108,7 +126,7 @@ public class ChatActivity extends AppCompatActivity {
         }
         mMessage.setText(null);
     }
-    private void initializeRecyclerView() {
+    private void initializeMessage() {
         messageList = new ArrayList<>();
         messageListView = findViewById(R.id.messageList);
         messageListView.setNestedScrollingEnabled(false);
@@ -118,5 +136,41 @@ public class ChatActivity extends AppCompatActivity {
         messageAdapter = new MessageAdapter(messageList);
         messageListView.setAdapter(messageAdapter);
     }
+    private void initializeMedia() {
+        mediaUriList = new ArrayList<>();
+        mediaListView = findViewById(R.id.mediaList);
+        mediaListView.setNestedScrollingEnabled(false);
+        mediaListView.setHasFixedSize(false);
+        mediaListLayourManager = new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false);
+        mediaListView.setLayoutManager(mediaListLayourManager);
+        mediaAdapter = new MediaAdapter(getApplicationContext(), mediaUriList);
+        mediaListView.setAdapter(messageAdapter);
+    }
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "select Picture(s)"), PICK_IMAGE_INTENT );
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == PICK_IMAGE_INTENT){
+                if(data.getClipData() == null) {
+                    mediaUriList.add(data.getData().toString());
+                }
+                else
+                {
+                    for(int i = 0; i < data.getClipData().getItemCount(); i++){
+                        mediaUriList.add(data.getClipData().getItemAt(i).getUri().toString());
+                    }
+                }
+
+                mediaAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 }
