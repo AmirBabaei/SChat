@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,33 +42,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         userListViewHolder.usrName.setText(userList.get(position).getName());
         userListViewHolder.usrPhone.setText(userList.get(position).getPhone());
 
-        userListViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+        userListViewHolder.Add.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
-                createChat(userListViewHolder.getAdapterPosition());
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                userList.get(userListViewHolder.getAdapterPosition()).setSelected(isChecked);
             }
         });
+
+
     }
-    private void createChat(int position)
-    {
-        String key = FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
 
-        HashMap newChatMap = new HashMap();
-        newChatMap.put("id", key);
-        newChatMap.put("users/" + FirebaseAuth.getInstance().getUid(), true);
-        newChatMap.put("users/" + userList.get(position).getUid(), true);
-
-        DatabaseReference chatInfoDb = FirebaseDatabase.getInstance().getReference().child("chat").child(key).child("info");
-        chatInfoDb.updateChildren(newChatMap);
-
-
-        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("user");
-
-        userDb.child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
-        // the user they click on
-        userDb.child(userList.get(position).getUid()).child("chat").child(key).setValue(true);
-    }
 
     @Override
     public int getItemCount() {
@@ -74,14 +59,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     }
 
 
-    public class UserListViewHolder extends RecyclerView.ViewHolder{
-        public TextView usrPublicKey, usrName, usrPhone;
+     class UserListViewHolder extends RecyclerView.ViewHolder{
+        TextView usrPublicKey, usrName, usrPhone;
         LinearLayout layout;
-        public UserListViewHolder(View view){
+        CheckBox Add;
+        UserListViewHolder(View view){
             super(view);
             usrPublicKey = view.findViewById(R.id.publicKey);
             usrName = view.findViewById(R.id.name);
             usrPhone = view.findViewById(R.id.phone);
+            Add = view.findViewById(R.id.add);
             layout = view.findViewById(R.id.itemUserLayout);
         }
     }
