@@ -18,11 +18,11 @@
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
 
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".Chat.ChatActivity" />
         <activity android:name=".PhoneLogin" />
         <activity android:name=".User.FindUserActivity" />
         <activity android:name=".MainFeedActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".unimplemented.MainActivity" />
         <activity android:name=".WelcomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

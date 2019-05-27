@@ -1,4 +1,4 @@
-package com.example.schat;
+package com.example.schat.unimplemented;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.schat.MainFeedActivity;
+import com.example.schat.R;
+import com.example.schat.unimplemented.ContactsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;

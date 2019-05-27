@@ -1,4 +1,4 @@
-package com.example.schat;
+package com.example.schat.Chat;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.example.schat.Chat.MediaAdapter;
 import com.example.schat.Chat.MessageAdapter;
 import com.example.schat.Chat.MessageObject;
+import com.example.schat.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
