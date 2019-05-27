@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.schat.Utils.CountryToPhonePrefix;
 import com.example.schat.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FindUserActivity extends AppCompatActivity {
 
@@ -28,6 +32,8 @@ public class FindUserActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager userListLayoutManager;
 
     ArrayList<UserObject> userList, contactList;
+
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,14 @@ public class FindUserActivity extends AppCompatActivity {
         contactList = new ArrayList<>();
         userList = new ArrayList<>();
 
+        Button create = findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createChat();
+            }
+        });
+
         /*
         chat is here
 
@@ -44,6 +58,32 @@ public class FindUserActivity extends AppCompatActivity {
         
         initializeRecyclerView();
         getContactList();
+    }
+    private void createChat()
+    {
+        String key = FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
+
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("user");
+        DatabaseReference chatInfoDb = FirebaseDatabase.getInstance().getReference().child("chat").child(key).child("info");
+
+        HashMap newChatMap = new HashMap();
+        newChatMap.put("id", key);
+        newChatMap.put("users/" + FirebaseAuth.getInstance().getUid(), true);
+
+        Boolean valid = false;
+        for(UserObject user : userList){
+            if(user.getSelected())
+            {
+                valid = true;
+                newChatMap.put("users/" + user.getUid(), true);
+                userDb.child(user.getUid()).child("chat").child(key).setValue(true);
+            }
+        }
+        if(valid) {
+            chatInfoDb.updateChildren(newChatMap);
+            userDb.child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
+            // the user they click on
+        }
     }
     private void getContactList(){
         String ISOPrefix = getCountryISO();
