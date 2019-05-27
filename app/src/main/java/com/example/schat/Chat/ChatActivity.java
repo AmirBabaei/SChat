@@ -18,6 +18,8 @@ import com.example.schat.Chat.MediaAdapter;
 import com.example.schat.Chat.MessageAdapter;
 import com.example.schat.Chat.MessageObject;
 import com.example.schat.R;
+import com.example.schat.User.UserObject;
+import com.example.schat.Utils.SendNotification;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -39,20 +41,24 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager messageListLayoutManager, mediaListLayourManager;
 
     ArrayList<MessageObject> messageList;
-    String chatID;
     DatabaseReference chatMessagesDb;
 
     int PICK_IMAGE_INTENT = 1;
     ArrayList<String> mediaUriList = new ArrayList<>();
     ArrayList<String> mediaIdList = new ArrayList<>();
     EditText mMessage;
+    int mediaPosition = 0;
+
+    ChatObject mChatObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        chatID = getIntent().getExtras().getString("chatID");
-        chatMessagesDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID);
+
+        mChatObject = (ChatObject) getIntent().getSerializableExtra("chatObject");
+
+        chatMessagesDb = FirebaseDatabase.getInstance().getReference().child("chat").child(mChatObject.getChatId()).child("messages");
         Button addMedia = findViewById(R.id.addMedia);
         Button send = findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
@@ -131,30 +137,29 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-    int mediaPosition = 0;
     private void sendMessage()
     {
         mMessage =  findViewById(R.id.messageInput);
-            String messageId = chatMessagesDb.push().getKey();
-            final DatabaseReference newMessageDb = chatMessagesDb.child(messageId);
-            final Map newMessageMap = new HashMap<>();
+        String messageId = chatMessagesDb.push().getKey();
+        final DatabaseReference newMessageDb = chatMessagesDb.child(messageId);
+        final Map newMessageMap = new HashMap<>();
 
-            newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
-            if(!mMessage.getText().toString().isEmpty())
-            {
-                newMessageMap.put("text", mMessage.getText().toString());
-            }
+        newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
+        if(!mMessage.getText().toString().isEmpty())
+        {
+            newMessageMap.put("text", mMessage.getText().toString());
+        }
 
 
-            if(!mediaUriList.isEmpty()){
-                for(String mediaUri : mediaUriList){
-                    final String mediaId = newMessageDb.child("media").push().getKey();
-                    mediaIdList.add(mediaId);
-                    final StorageReference filePath = FirebaseStorage.getInstance().getReference().child("chat").child(messageId).child(mediaId);
+        if(!mediaUriList.isEmpty()){
+            for(String mediaUri : mediaUriList){
+                final String mediaId = newMessageDb.child("media").push().getKey();
+                mediaIdList.add(mediaId);
+                final StorageReference filePath = FirebaseStorage.getInstance().getReference().child("chat").child(mChatObject.getChatId()).child(messageId).child(mediaId);
 
-                    UploadTask uploadtask = filePath.putFile(Uri.parse(mediaUri));
+                UploadTask uploadtask = filePath.putFile(Uri.parse(mediaUri));
 
-                    uploadtask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                uploadtask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -190,7 +195,26 @@ public class ChatActivity extends AppCompatActivity {
         mMessage.setText(null);
         mediaIdList.clear();
         mediaUriList.clear();
+        mediaPosition=0;
         mediaAdapter.notifyDataSetChanged();
+
+        String message;
+
+        if(newMessageMap.get("text") != null)
+        {
+            message = newMessageMap.get("text").toString();
+        }
+        else
+        {
+            message = "Sent Media";
+        }
+
+        for(UserObject user : mChatObject.getUserObjectArrayList()){
+            if(!user.getUid().equals(FirebaseAuth.getInstance().getUid())){
+                Log.d(user.getUid().toString(), "updateDatabaseWithNewMessage: Notification should be send compare: " + FirebaseAuth.getInstance().getUid().toString());
+                new SendNotification(message, "New Message", user.getNotificationKey());
+            }
+        }
     }
 
     private void initializeMessage() {

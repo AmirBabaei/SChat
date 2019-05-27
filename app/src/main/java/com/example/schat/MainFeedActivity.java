@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.example.schat.Chat.ChatObject;
 import com.example.schat.User.FindUserActivity;
 import com.example.schat.Chat.ChatListAdapter;
+import com.example.schat.User.UserObject;
 import com.example.schat.Utils.SendNotification;
 import com.example.schat.unimplemented.ContactsActivity;
 import com.example.schat.unimplemented.ProfileActivity;
@@ -52,7 +53,6 @@ public class MainFeedActivity extends AppCompatActivity {
         });
         OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
-        new SendNotification("message 1", "heading 1", null);
 
         Fresco.initialize(this);
 
@@ -107,7 +107,8 @@ public class MainFeedActivity extends AppCompatActivity {
                         if (exists)
                             continue;
                         chatList.add(mChat);
-                        chatListAdapter.notifyDataSetChanged();
+                        getChatData(mChat.getChatId());
+                        //chatListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -121,6 +122,73 @@ public class MainFeedActivity extends AppCompatActivity {
 
 
     }
+
+    private void getChatData(String chatId) {
+        DatabaseReference chatDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatId).child("info");
+        chatDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    String chatId = "";
+                    if(dataSnapshot.child("id").getValue() != null)
+                    {
+                        chatId = dataSnapshot.child("id").getValue().toString();
+                    }
+                    for(DataSnapshot userSnapShot : dataSnapshot.child("users").getChildren())
+                    {
+                        for(ChatObject chatIterator : chatList)
+                        {
+                            if(chatIterator.getChatId().equals(chatId))
+                            {
+                                UserObject mUser = new UserObject(userSnapShot.getKey());
+                                chatIterator.addUserToArrayList(mUser);
+                                getUserData(mUser);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getUserData(UserObject mUser) {
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("user").child(mUser.getUid());
+        userDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserObject mUser = new UserObject(dataSnapshot.getKey());
+
+                if(dataSnapshot.child("notificationKey").getValue() != null)
+                {
+                    mUser.setNotificationKey(dataSnapshot.child("notificationKey").getValue().toString());
+                }
+                for(ChatObject mChat : chatList)
+                {
+                    for(UserObject userIterator : mChat.getUserObjectArrayList()){
+                        if(userIterator.getUid().equals(mUser.getUid())){
+                            userIterator.setNotificationKey((mUser.getNotificationKey()));
+
+                            //This is also where we could grab user name or profile picture and other similar user data.
+                        }
+                    }
+                }
+                chatListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
 
     private void initializeRecyclerView() {
