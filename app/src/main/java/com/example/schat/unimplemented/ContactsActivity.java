@@ -1,10 +1,12 @@
-package com.example.schat;
+package com.example.schat.unimplemented;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.example.schat.R;
 
 public class ContactsActivity extends AppCompatActivity {
 
