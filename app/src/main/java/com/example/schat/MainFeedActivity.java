@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.Manifest;
@@ -168,11 +169,16 @@ public class MainFeedActivity extends AppCompatActivity {
                 {
                     mUser.setNotificationKey(dataSnapshot.child("notificationKey").getValue().toString());
                 }
+                if(dataSnapshot.child("name").getValue() != null)
+                {
+                    mUser.setName(dataSnapshot.child("name").getValue().toString());
+                }
                 for(ChatObject mChat : chatList)
                 {
                     for(UserObject userIterator : mChat.getUserObjectArrayList()){
                         if(userIterator.getUid().equals(mUser.getUid())){
                             userIterator.setNotificationKey((mUser.getNotificationKey()));
+                            userIterator.setName(mUser.getName());
 
                             //This is also where we could grab user name or profile picture and other similar user data.
                         }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
 
     ArrayList<ChatObject> chatList;
+    String names = "";
     public ChatListAdapter(ArrayList<ChatObject> chatList){
         this.chatList = chatList;
     }
@@ -34,7 +35,20 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
 
     @Override
     public void onBindViewHolder(@NonNull final ChatListViewHolder chatListViewHolder, final int position) {
-        chatListViewHolder.chatTitle.setText(chatList.get(position).getChatId());
+        for(int i = 0; i < chatList.get(position).getSize(); i++)
+        {
+            if(i == 0)
+            {
+                names = chatList.get(position).getUserObjectArrayList().get(i).getName();
+            }
+            else {
+                names = names + ", " +chatList.get(position).getUserObjectArrayList().get(i).getName();
+            }
+        }
+
+
+        chatListViewHolder.chatTitle.setText(names);
+        names = "";
 
         chatListViewHolder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

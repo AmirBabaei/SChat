@@ -21,6 +21,10 @@ public class ChatObject implements Serializable {
     public ArrayList<UserObject> getUserObjectArrayList() {
         return userObjectArrayList;
     }
+    public int getSize()
+    {
+        return userObjectArrayList.size();
+    }
 
 
 

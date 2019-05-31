@@ -38,7 +38,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
 
     @Override
     public void onBindViewHolder(@NonNull final UserListViewHolder userListViewHolder, int position) {
-        userListViewHolder.usrPublicKey.setText("User Public Key"/*userList.get(i).getPublicKey()*/);// uid for now
+        userListViewHolder.usrPublicKey.setText(userList.get(position).getUid());// uid for now
         userListViewHolder.usrName.setText(userList.get(position).getName());
         userListViewHolder.usrPhone.setText(userList.get(position).getPhone());
 

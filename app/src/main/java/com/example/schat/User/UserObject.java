@@ -14,9 +14,20 @@ public class UserObject implements Serializable {
     public UserObject(String uid){
         this.uid = uid;
     }
-    public UserObject(String uid, String name, String phone){
+    public UserObject(String uid, String name){
         this.uid = uid;
         this.name = name;
+    }
+    public UserObject(String uid, String name, String phone){
+        this.uid = uid;
+        if(!name.equals(""))
+        {
+            this.name = name;
+        }
+        else
+        {
+            this.name = uid;
+        }
         this.phone = phone;
     }
 

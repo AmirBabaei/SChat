@@ -84,6 +84,7 @@ public class FindUserActivity extends AppCompatActivity {
             userDb.child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
             // the user they click on
         }
+        finish();
     }
     private void getContactList(){
         String ISOPrefix = getCountryISO();
@@ -115,17 +116,19 @@ public class FindUserActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot.exists()){
-                    String  phone = "", public_key = "";
+                    String  phone = "", public_key = "", name ="";
                     for(DataSnapshot childSnapshot : dataSnapshot.getChildren())
                     {
                         if(childSnapshot.child("phone_number").getValue()!=null)
                             phone = childSnapshot.child("phone_number").getValue().toString();
                         if(childSnapshot.child("public_key").getValue()!=null)
                             public_key = childSnapshot.child("public_key").getValue().toString();
+                        if(childSnapshot.child("name").getValue()!=null)
+                            name = childSnapshot.child("name").getValue().toString();
 
                         // This display a user name instead of a phone number
                         // getKey is the firebase uid
-                        UserObject user = new UserObject(childSnapshot.getKey(), public_key, phone);
+                        UserObject user = new UserObject(childSnapshot.getKey(), name, phone);
                         if (public_key.equals(phone))
                             for(UserObject contactIterator : contactList){
                                 if(contactIterator.getPhone().equals(user.getPhone())){
