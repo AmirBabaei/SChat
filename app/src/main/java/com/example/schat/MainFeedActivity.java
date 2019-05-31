@@ -3,6 +3,7 @@ package com.example.schat;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabItem;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +60,7 @@ public class MainFeedActivity extends AppCompatActivity {
 
         // contact search
         Button mFindUser = findViewById(R.id.find_user);
+
         mFindUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -50,7 +50,6 @@
         android:layout_marginEnd="81dp"
         android:background="@drawable/mainbuttons"
         android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="8sp"
         android:text="Send Verification"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
