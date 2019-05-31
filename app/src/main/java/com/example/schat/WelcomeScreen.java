@@ -30,11 +30,11 @@ public class WelcomeScreen extends AppCompatActivity {
         logoDisplay = findViewById(R.id.logoDisplay);
         welcomeScreenButtons = findViewById(R.id.welcomeScreenButtons);
         phone = findViewById(R.id.phoneAuthenticate);
-        email = findViewById(R.id.emailAuthenticate);
+       // email = findViewById(R.id.emailAuthenticate);
 
         logoDisplay.setImageResource(R.drawable.logo2);
         phone.setText("Use a phone number");
-        email.setText("Use an email address");
+        //email.setText("Use an email address");
         welcomeScreenButtons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
