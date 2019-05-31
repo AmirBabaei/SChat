@@ -49,20 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         userIsLoggedIn();
 
-        //EMAIL LOGIN STUFF
-        mEmail = findViewById(R.id.Email);
-        mPassword = findViewById(R.id.password);
-        mLoginEmail = findViewById(R.id.Email_btn);
-
-        mLoginEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mLoginEmail != null && mPassword != null)
-                {
-
-                }
-            }
-        });
 
 
 

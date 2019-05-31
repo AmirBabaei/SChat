@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".unimplemented.MainActivity"
-    android:orientation="vertical">
+    tools:context=".unimplemented.MainActivity">
 
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter Phone Number"
         android:id="@+id/phoneNumberEntry"
-        />
-    <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Code"
+        android:layout_marginStart="128dp"
+        android:layout_marginEnd="111dp"
+        android:hint="Enter Phone Number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="271dp" />
+
+    <EditText
         android:id="@+id/code"
-        />
+        android:layout_width="250dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="74dp"
+        android:hint="Enter Code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberEntry" />
+
     <Button
+        android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Verification code"
-        android:id="@+id/send"
-        />
-
-    <EditText
-        android:id="@+id/Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter Email" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter password"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/Email_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login with Email" />
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="453dp" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
