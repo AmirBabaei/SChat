@@ -173,8 +173,15 @@ public class MainFeedActivity extends AppCompatActivity {
                 }
                 if(dataSnapshot.child("name").getValue() != null)
                 {
+
                     mUser.setName(dataSnapshot.child("name").getValue().toString());
+
                 }
+                else
+                {
+                    mUser.setName(dataSnapshot.child("public_key").getValue().toString());
+                }
+
                 for(ChatObject mChat : chatList)
                 {
                     for(UserObject userIterator : mChat.getUserObjectArrayList()){
