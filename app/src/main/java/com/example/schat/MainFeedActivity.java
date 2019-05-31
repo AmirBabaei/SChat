@@ -75,7 +75,7 @@ public class MainFeedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 OneSignal.setSubscription(false);
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
+                Intent intent = new Intent(getApplicationContext(), PhoneLogin.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
