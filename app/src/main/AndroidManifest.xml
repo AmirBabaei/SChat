@@ -26,7 +26,8 @@
         <activity android:name=".User.FindUserActivity" />
         <activity android:name=".MainFeedActivity" />
         <activity android:name=".unimplemented.MainActivity" />
-        <activity android:name=".PhoneLogin">
+        <activity android:name=".PhoneLogin"/>
+            <activity android:name=".unimplemented.ProfileActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
