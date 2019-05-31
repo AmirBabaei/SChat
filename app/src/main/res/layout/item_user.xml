@@ -2,36 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/itemUserLayout"
     android:layout_width="match_parent"
+    android:color="#94026B5F"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@drawable/textborder"
+
     android:padding="20sp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/publicKey"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/publicKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF" />
     </LinearLayout>
+
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:outlineAmbientShadowColor="#FFFFFF" />
+
     <CheckBox
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/add"/>
+        android:checked="false"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        android:outlineSpotShadowColor="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="#FFFFFF"
+        android:textCursorDrawable="@color/common_google_signin_btn_text_dark_default" />
 </LinearLayout>
