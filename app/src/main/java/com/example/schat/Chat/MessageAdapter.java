@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.schat.R;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
@@ -26,7 +26,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, null, false);
+        //if(FirebaseAuth.getInstance().getCurrentUser().getUid() == )
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent, null, false);
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
         MessageViewHolder rcv = new MessageViewHolder(layoutView);
