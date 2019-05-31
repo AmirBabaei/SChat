@@ -5,11 +5,16 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
-<TextView
-    android:id="@+id/chatTitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="20sp"/>
+    <TextView
+        android:id="@+id/chatTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textborder"
+
+        android:outlineAmbientShadowColor="#02524B"
+        android:outlineSpotShadowColor="#01362D"
+        android:padding="20sp"
+        android:textColor="#FAFAFA" />
 
 
 </LinearLayout>
