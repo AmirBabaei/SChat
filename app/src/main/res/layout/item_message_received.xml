@@ -2,19 +2,16 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="right">
+    android:gravity="right"
+    android:orientation="horizontal">
+
     <Button
+        android:id="@+id/RviewMedia"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@mipmap/no_image_icon_13"
-        android:id="@+id/RviewMedia"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1sp"
-        android:background="#000000"/>
+        android:background="@mipmap/no_image_icon_13" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -22,30 +19,32 @@
         android:orientation="vertical">
 
         <TextView
-            android:background="@drawable/rounded_rectangle_blue"
+            android:id="@+id/Rmessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="#ffffff"
             android:layout_marginTop="4dp"
-            android:id="@+id/Rmessage"/>
+            android:background="@drawable/rounded_rectangle_blue"
+            android:padding="8dp"
+            android:textColor="#ffffff" />
 
         <TextView
 
+            android:id="@+id/Rsender"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Rsender"/>
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/Rtext_message_time"
-            android:text="11:40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:layout_marginLeft="4dp" />
+            android:layout_marginLeft="4dp"
+            android:text="11:40"
+            android:textSize="10sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1sp"
-            android:background="#000000"/>
+            android:background="#000000" />
 
     </LinearLayout>
 
