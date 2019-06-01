@@ -187,6 +187,7 @@ public class ChatActivity extends AppCompatActivity {
             }
 
         mMessage.setText(null);
+        mediaAdapter.notifyDataSetChanged();
     }
 
     private void updateDatabaseWithNewMessage(DatabaseReference dbReference, Map newMessageMap)
@@ -196,7 +197,6 @@ public class ChatActivity extends AppCompatActivity {
         mediaIdList.clear();
         mediaUriList.clear();
         mediaPosition=0;
-        mediaAdapter.notifyDataSetChanged();
 
         String message;
 
@@ -215,6 +215,7 @@ public class ChatActivity extends AppCompatActivity {
                 new SendNotification(message, "New Message", user.getNotificationKey());
             }
         }
+        mediaAdapter.notifyDataSetChanged();
     }
 
     private void initializeMessage() {
