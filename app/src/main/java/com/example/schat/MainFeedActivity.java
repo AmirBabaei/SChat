@@ -60,6 +60,7 @@ public class MainFeedActivity extends AppCompatActivity {
 
         // contact search
         Button mFindUser = findViewById(R.id.find_user);
+        Button mprofile = findViewById(R.id.profilebutton);
 
         mFindUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +69,12 @@ public class MainFeedActivity extends AppCompatActivity {
             }
         });
         // profile
-
+        mprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainFeedActivity.this, ProfileActivity.class));
+            }
+        });
         // logout button
         Button mLogout = findViewById(R.id.logout);
         mLogout.setOnClickListener(new View.OnClickListener() {
