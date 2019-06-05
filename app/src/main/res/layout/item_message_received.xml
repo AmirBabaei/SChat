@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/rounded_rectangle_blue"
+            android:layout_gravity="right"
             android:padding="8dp"
             android:textColor="#ffffff" />
 
