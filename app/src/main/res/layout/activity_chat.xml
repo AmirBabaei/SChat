@@ -2,14 +2,15 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
-android:layout_height="match_parent"
+android:layout_height="match_parent" android:background="#FF029789"
 tools:context=".Chat.ChatActivity">
 
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/messageList"
-    android:layout_above="@+id/sendLayout"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/messageList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sendLayout"
+        android:background="#8B009688" />
 
     <LinearLayout
         android:layout_alignParentBottom="true"
@@ -19,34 +20,47 @@ tools:context=".Chat.ChatActivity">
         android:id="@+id/sendLayout">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/mediaList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/mediaList"/>
+            android:background="#8B009688" />
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
-                android:layout_weight="0.8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:id="@+id/messageInput"
-                android:hint="message..."/>
-            <Button
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="add media"
-                android:id="@+id/addMedia"/>
+                android:layout_width="232dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="2dp"
+                android:hint="message..."
+                android:textColor="#FFFFFF"
+                android:textColorHint="#EEEEEE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:layout_weight="0.2"
-                android:layout_width="0dp"
+                android:id="@+id/addMedia"
+                android:layout_width="76dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="6dp"
+                android:background="#00FFFFFF"
+                android:drawableBottom="@android:drawable/ic_menu_gallery"
+                app:layout_constraintStart_toEndOf="@+id/messageInput"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="send"
-                android:id="@+id/send"/>
-        </LinearLayout>
+                android:background="#00FFFFFF"
+                android:drawableBottom="@android:drawable/ic_menu_send"
+                app:layout_constraintStart_toEndOf="@+id/addMedia"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 </RelativeLayout>

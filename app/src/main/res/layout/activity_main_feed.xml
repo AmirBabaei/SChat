@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF029789"
@@ -15,43 +17,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout2"
 
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
                 android:background="#FF029789"
-                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/find_user"
-                    android:textColor="#009688"
-                    android:background="@drawable/mainbuttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/find_user" />
+                    android:layout_marginStart="56dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#00FFFFFF"
+                    android:drawableBottom="@drawable/friendicon"
+                    app:layout_constraintStart_toEndOf="@+id/logout"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/logout"
+                    android:layout_width="76dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="17dp"
                     android:background="@drawable/mainbuttons"
+                    android:text="@string/logout"
                     android:textColor="#009688"
+                    app:layout_constraintEnd_toStartOf="@+id/find_user"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/profilebutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/logout" />
-            </LinearLayout>
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="#00FFFFFF"
+                    android:drawableBottom="@drawable/proficon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/find_user"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
-            <android.support.design.widget.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </android.support.design.widget.BottomNavigationView>
         </android.support.design.widget.BottomNavigationView>
     </android.support.design.widget.NavigationView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chatList"
