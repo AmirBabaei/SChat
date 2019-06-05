@@ -33,7 +33,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        //if(FirebaseAuth.getInstance().getCurrentUser().getUid() == )
         View layoutView;
         if( viewType == 0)
         {
@@ -57,6 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
             holder.sender.setText(messageList.get(position).getSenderId());
+            holder.time.setText(messageList.get(position).getTime());
 
             if(messageList.get(holder.getAdapterPosition()).getMediaUrLList().isEmpty())
             {
@@ -76,6 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         {
             holder.Rmessage.setText(messageList.get(position).getMessage());
             holder.Rsender.setText(messageList.get(position).getSenderId());
+            holder.Rtime.setText(messageList.get(position).getTime());
 
             if(messageList.get(holder.getAdapterPosition()).getMediaUrLList().isEmpty())
             {
@@ -110,7 +111,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     class MessageViewHolder extends RecyclerView.ViewHolder
     {
-        TextView  message, sender, Rmessage, Rsender;
+        TextView  message, sender, time, Rtime, Rmessage, Rsender;
         Button viewMedia, RviewMedia;
         LinearLayout layout, Rlayout;
         MessageViewHolder(View view)
@@ -119,6 +120,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             layout = view.findViewById(R.id.sendLayout);
             message = view.findViewById(R.id.message);
             sender = view.findViewById(R.id.sender);
+            time = view.findViewById(R.id.messageTime);
+
 
             viewMedia = view.findViewById(R.id.viewMedia);
 
@@ -126,6 +129,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             Rmessage = view.findViewById(R.id.Rmessage);
             Rsender = view.findViewById(R.id.Rsender);
             RviewMedia = view.findViewById(R.id.RviewMedia);
+            Rtime = view.findViewById(R.id.Rmessagetime);
         }
     }
 }

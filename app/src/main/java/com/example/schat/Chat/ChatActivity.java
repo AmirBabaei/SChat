@@ -32,8 +32,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Calendar;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView messageListView, mediaListView;
@@ -50,6 +52,7 @@ public class ChatActivity extends AppCompatActivity {
     int mediaPosition = 0;
 
     ChatObject mChatObject;
+    Date messageTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +94,13 @@ public class ChatActivity extends AppCompatActivity {
             {
                 if(dataSnapshot.exists())
                 {
-                    String  text = "", creatorID = "";
+                    String  text = "", creatorID = "", messageTime="";
 
                     ArrayList<String> mediaUrlList = new ArrayList<>();
                     if(dataSnapshot.child("text").getValue() != null)
                         text = dataSnapshot.child("text").getValue().toString();
+                    if(dataSnapshot.child("time").getValue() != null)
+                        messageTime = dataSnapshot.child("time").getValue().toString();
                     if(dataSnapshot.child("creator").getValue() != null)
                         creatorID = dataSnapshot.child("creator").getValue().toString();
                     if(dataSnapshot.child("media").getChildrenCount() > 0)
@@ -107,10 +112,11 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     }
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList, messageTime);
                     messageList.add(mMessage);
-                    messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
                     messageAdapter.notifyDataSetChanged();
+                    messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
+
                 }
             }
 
@@ -149,6 +155,8 @@ public class ChatActivity extends AppCompatActivity {
         {
             newMessageMap.put("text", mMessage.getText().toString());
         }
+        messageTime = Calendar.getInstance().getTime();
+        newMessageMap.put("time", messageTime.toString() );
 
 
         if(!mediaUriList.isEmpty()){
