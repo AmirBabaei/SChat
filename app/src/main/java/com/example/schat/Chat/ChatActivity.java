@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.example.schat.Chat.MediaAdapter;
 import com.example.schat.Chat.MessageAdapter;
 import com.example.schat.Chat.MessageObject;
+import com.example.schat.Encryption.Encryption;
 import com.example.schat.R;
 import com.example.schat.User.UserObject;
 import com.example.schat.Utils.SendNotification;
@@ -97,10 +98,19 @@ public class ChatActivity extends AppCompatActivity {
                     String  text = "", creatorID = "", messageTime="";
 
                     ArrayList<String> mediaUrlList = new ArrayList<>();
-                    if(dataSnapshot.child("text").getValue() != null)
-                        text = dataSnapshot.child("text").getValue().toString();
-                    if(dataSnapshot.child("time").getValue() != null)
-                        messageTime = dataSnapshot.child("time").getValue().toString();
+                    // Decryption here
+                    try
+                    {
+                        if(dataSnapshot.child("text").getValue() != null)
+                            text = Encryption.decrypt(dataSnapshot.child("text").getValue().toString());
+                        if(dataSnapshot.child("time").getValue() != null)
+                            messageTime = Encryption.decrypt(dataSnapshot.child("time").getValue().toString());
+                    }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
                     if(dataSnapshot.child("creator").getValue() != null)
                         creatorID = dataSnapshot.child("creator").getValue().toString();
                     if(dataSnapshot.child("media").getChildrenCount() > 0)
@@ -151,12 +161,26 @@ public class ChatActivity extends AppCompatActivity {
         final Map newMessageMap = new HashMap<>();
 
         newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
+        // Encryption here
+        String encrypted_message = null, encrypted_time = null;
         if(!mMessage.getText().toString().isEmpty())
         {
-            newMessageMap.put("text", mMessage.getText().toString());
+            try {
+                encrypted_message = Encryption.encrypt(mMessage.getText().toString());
+                encrypted_time    = Encryption.encrypt(Calendar.getInstance().getTime().toString());
+                if(encrypted_message != null)
+                    newMessageMap.put("text", /*mMessage.getText().toString()*/encrypted_message);
+                if(encrypted_time != null)
+                    newMessageMap.put("time", /*mMessage.getText().toString()*/encrypted_time);
+
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
-        messageTime = Calendar.getInstance().getTime();
-        newMessageMap.put("time", messageTime.toString() );
+        //messageTime = Calendar.getInstance().getTime();
+        //newMessageMap.put("time", messageTime.toString() );
 
 
         if(!mediaUriList.isEmpty()){
