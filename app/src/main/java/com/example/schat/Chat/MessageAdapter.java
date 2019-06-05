@@ -54,8 +54,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         {
             holder.message.setText(messageList.get(position).getMessage());
 
-
-            holder.sender.setText(messageList.get(position).getSenderId());
+            if(!messageList.get(position).CreatorName.equals(""))
+            {
+                holder.sender.setText(messageList.get(position).getSenderName());
+            }
+            else
+            {
+                holder.sender.setText(messageList.get(position).getSenderId());
+            }
             holder.time.setText(messageList.get(position).getTime());
 
             if(messageList.get(holder.getAdapterPosition()).getMediaUrLList().isEmpty())
@@ -75,7 +81,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         else
         {
             holder.Rmessage.setText(messageList.get(position).getMessage());
-            holder.Rsender.setText(messageList.get(position).getSenderId());
+            if(!messageList.get(position).CreatorName.equals(""))
+            {
+                holder.Rsender.setText(messageList.get(position).getSenderName());
+            }
+            else
+            {
+                holder.Rsender.setText(messageList.get(position).getSenderId());
+            }
             holder.Rtime.setText(messageList.get(position).getTime());
 
             if(messageList.get(holder.getAdapterPosition()).getMediaUrLList().isEmpty())

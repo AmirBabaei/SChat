@@ -117,6 +117,8 @@ public class ChatActivity extends AppCompatActivity {
                         if(!(userID.equals("") && userName.equals(""))) {
                             Log.d("USERMAP","INTSERTING ID: " + userID +" UserName:" + userName);
                             userMap.put(userID, userName);
+                            userID = "";
+                            userName = "";
                         }
                     }
                 }
@@ -163,14 +165,8 @@ public class ChatActivity extends AppCompatActivity {
                     }
 
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList, messageTime);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList, messageTime, userMap.get(creatorID).toString());
                     messageList.add(mMessage);
-//                    try {
-//                        Thread.sleep(5000);
-//                    } catch (InterruptedException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
                     messageAdapter.notifyDataSetChanged();
                     messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
 
