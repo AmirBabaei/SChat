@@ -235,6 +235,14 @@ public class ChatActivity extends AppCompatActivity {
         if(newMessageMap.get("text") != null)
         {
             message = newMessageMap.get("text").toString();
+            try
+            {
+                message = Encryption.decrypt(message);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
         else
         {
