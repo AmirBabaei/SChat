@@ -37,9 +37,11 @@ tools:context=".Chat.ChatActivity">
                 android:layout_height="43dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginEnd="6dp"
                 android:hint="message..."
                 android:textColor="#FFFFFF"
                 android:textColorHint="#EEEEEE"
+                app:layout_constraintEnd_toStartOf="@+id/addMedia"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +52,7 @@ tools:context=".Chat.ChatActivity">
                 android:layout_marginStart="6dp"
                 android:background="#00FFFFFF"
                 android:drawableBottom="@android:drawable/ic_menu_gallery"
+                app:layout_constraintEnd_toStartOf="@+id/send"
                 app:layout_constraintStart_toEndOf="@+id/messageInput"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,8 +60,10 @@ tools:context=".Chat.ChatActivity">
                 android:id="@+id/send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
                 android:background="#00FFFFFF"
                 android:drawableBottom="@android:drawable/ic_menu_send"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/addMedia"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
