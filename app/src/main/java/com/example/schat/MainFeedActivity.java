@@ -78,6 +78,7 @@ public class MainFeedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OneSignal.setSubscription(false);
+               // FirebaseAuth.getInstance().revokeRefreshTokens(uid);
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), PhoneLogin.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

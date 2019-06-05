@@ -43,7 +43,10 @@ import java.util.concurrent.TimeUnit;
          setup();
          userIsLoggedIn();
      }
-
+     @Override
+     public void onBackPressed() {
+// empty so nothing happens
+     }
      private void setup(){
          FirebaseApp.initializeApp(this);
          // so that the user doesnt have to continually login

@@ -28,11 +28,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +53,8 @@ public class ChatActivity extends AppCompatActivity {
     ArrayList<String> mediaIdList = new ArrayList<>();
     EditText mMessage;
     int mediaPosition = 0;
+
+    Map userMap;
 
     ChatObject mChatObject;
     Date messageTime;
@@ -88,11 +92,47 @@ public class ChatActivity extends AppCompatActivity {
 
     private void getChatMessages()
     {
+        userMap = new HashMap<>();
+        DatabaseReference chatDB = FirebaseDatabase.getInstance().getReference().child("user");
+        chatDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    Log.d("USERMAP", "got datasnap");
+                    String userID = "", userName ="";
+                    for(DataSnapshot userSnapShot : dataSnapshot.getChildren())
+                    {
+                        Log.d("USERMAP", "got userSnap");
+                        if(userSnapShot.getKey() != null)
+                        {
+                            userID = userSnapShot.getKey().toString();
+                            Log.d("USERMAP", "UserID: " + userSnapShot.getKey().toString());
+                        }
+                        if(userSnapShot.child("name").getValue() != null)
+                        {
+                            userName = userSnapShot.child("name").getValue().toString();
+                            Log.d("USERMAP", "UserName: " + userSnapShot.child("name").getValue().toString());
+                        }
+                        if(!(userID.equals("") && userName.equals(""))) {
+                            Log.d("USERMAP","INTSERTING ID: " + userID +" UserName:" + userName);
+                            userMap.put(userID, userName);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         chatMessagesDb.addChildEventListener(new ChildEventListener()
         {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
             {
+                Log.d("USERMAP","THE MAP: " + Arrays.asList(userMap).toString());
                 if(dataSnapshot.exists())
                 {
                     String  text = "", creatorID = "", messageTime="";
@@ -122,8 +162,15 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     }
 
+
                     MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, text, mediaUrlList, messageTime);
                     messageList.add(mMessage);
+//                    try {
+//                        Thread.sleep(5000);
+//                    } catch (InterruptedException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
                     messageAdapter.notifyDataSetChanged();
                     messageListLayoutManager.scrollToPosition(messageList.size()-1);//scrolls down to latest message
 
