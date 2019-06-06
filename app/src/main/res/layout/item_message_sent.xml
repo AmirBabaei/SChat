@@ -44,10 +44,6 @@
             android:textSize="10sp" />
         />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
-            android:background="#000000" />
 
     </LinearLayout>
 

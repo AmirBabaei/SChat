@@ -33,7 +33,9 @@
 
             android:id="@+id/Rsender"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textAlignment="textEnd" />
 
         <TextView
             android:id="@+id/Rmessagetime"
@@ -41,14 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:text="11:40"
-            android:textColor="#00E9E6E6"
+            android:textColor="#362D2D"
             android:textColorHint="#FFFFFF"
+            android:layout_gravity="right"
             android:textSize="10sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
-            android:background="#000000" />
 
     </LinearLayout>
 
