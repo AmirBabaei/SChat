@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textColorHighlight="#FFFFFF" />
+            android:textColorHighlight="#FFFFFF"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View

@@ -11,8 +11,8 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:background="@drawable/textborder"
 
-        android:outlineAmbientShadowColor="#02524B"
-        android:outlineSpotShadowColor="#01362D"
+        android:outlineAmbientShadowColor="#80FFF0"
+        android:outlineSpotShadowColor="#80FFF0"
         android:padding="20sp"
         android:textColor="#FAFAFA" />
 
