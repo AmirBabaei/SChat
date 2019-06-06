@@ -1,5 +1,6 @@
 package com.example.schat.User;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -12,7 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.schat.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +37,13 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView profimg;
     Uri ImageUri;
 
-    final static int gallPick =1;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    StorageReference imagesRef = storageRef.child("Profiles/");
 
+
+    final static int gallPick =1;
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +51,57 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         userDb = FirebaseDatabase.getInstance().getReference();
+        imagesRef = storageRef.child("Profiles/").child(FirebaseAuth.getInstance().getUid());
 
         nameView = findViewById(R.id.name);
         lastView = findViewById(R.id.lastname);
         emailView = findViewById(R.id.email);
         profimg =  findViewById(R.id.imageView);
         update = findViewById(R.id.update);
+        imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d("Image stuff", "were in the glide block  "   + imagesRef.getDownloadUrl() );
+            Glide.with(context /* context */)
+                    .load(uri)
+                    .into(profimg);
+            Log.d("Image stuff", "image should be set" );
+            }
+        });
+        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    Log.d("profile fields", "snapshot exist");
+                    if(dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("name") != null && !dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("name").getValue().toString()
+                        .equals(""))
+                    {
+                        Log.d("profile fields", "made it into the name " + dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("name").getValue().toString());
+                        nameView.setText(dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("name").getValue().toString());
+                    }
+                    if(dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("lastName") != null && !dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("lastName").getValue().toString()
+                        .equals(""))
+                    {
+                        Log.d("profile fields", "made it into the lastName");
+                        lastView.setText(dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("lastName").getValue().toString());
+                    }
+                    if(dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("email") != null && !dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("email").getValue().toString()
+                            .equals(""))
+                    {
+                        Log.d("profile fields", "made it into the email");
+                        emailView.setText(dataSnapshot.child("user").child(FirebaseAuth.getInstance().getUid()).child("email").getValue().toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
         {
             ImageUri = data.getData();
             profimg.setImageURI(ImageUri);
+            imagesRef.putFile(ImageUri);
         }
 
     }
