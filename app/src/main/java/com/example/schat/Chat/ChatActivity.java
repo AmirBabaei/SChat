@@ -212,7 +212,7 @@ public class ChatActivity extends AppCompatActivity {
         {
             try {
 
-                String strDateFormat = "hh:mm:ss a";
+                String strDateFormat = "MMM d  hh:mm a";
                 DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
                 String formattedDate= dateFormat.format(Calendar.getInstance().getTime());
                 encrypted_message = Encryption.encrypt(mMessage.getText().toString());
