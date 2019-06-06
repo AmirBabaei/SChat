@@ -33,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -209,8 +211,12 @@ public class ChatActivity extends AppCompatActivity {
         if(!mMessage.getText().toString().isEmpty())
         {
             try {
+
+                String strDateFormat = "MMM d  hh:mm a";
+                DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+                String formattedDate= dateFormat.format(Calendar.getInstance().getTime());
                 encrypted_message = Encryption.encrypt(mMessage.getText().toString());
-                encrypted_time    = Encryption.encrypt(Calendar.getInstance().getTime().toString());
+                encrypted_time    = Encryption.encrypt(formattedDate);
                 if(encrypted_message != null)
                     newMessageMap.put("text", /*mMessage.getText().toString()*/encrypted_message);
                 if(encrypted_time != null)
