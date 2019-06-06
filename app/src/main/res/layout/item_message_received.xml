@@ -16,15 +16,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingRight="15dp">
 
         <TextView
             android:id="@+id/Rmessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:layout_marginTop="4dp"
             android:background="@drawable/rounded_rectangle_blue"
-            android:layout_gravity="right"
             android:padding="8dp"
             android:textColor="#ffffff" />
 
@@ -40,6 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:text="11:40"
+            android:textColor="#00E9E6E6"
+            android:textColorHint="#FFFFFF"
             android:textSize="10sp" />
 
         <View
