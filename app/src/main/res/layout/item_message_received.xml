@@ -14,8 +14,8 @@
         android:background="@mipmap/no_image_icon_13" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="98dp"
         android:orientation="vertical"
         android:paddingRight="15dp">
 
@@ -29,24 +29,29 @@
             android:padding="8dp"
             android:textColor="#ffffff" />
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            android:id="@+id/Rsender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textAlignment="textEnd" />
+            <TextView
 
-        <TextView
-            android:id="@+id/Rmessagetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:text="11:40"
-            android:textColor="#362D2D"
-            android:textColorHint="#FFFFFF"
-            android:layout_gravity="right"
-            android:textSize="10sp" />
+                android:id="@+id/Rsender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/Rmessagetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="4dp"
+                android:text="11:40"
+                android:textColor="#362D2D"
+                android:textColorHint="#FFFFFF"
+                android:textSize="10sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
