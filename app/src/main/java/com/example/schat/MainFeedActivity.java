@@ -207,7 +207,10 @@ public class MainFeedActivity extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+// empty so nothing happens
+    }
 
 
     private void initializeRecyclerView() {
@@ -219,20 +222,6 @@ public class MainFeedActivity extends AppCompatActivity {
         chatListView.setLayoutManager(chatListLayoutManager);
         chatListAdapter = new ChatListAdapter(chatList);
         chatListView.setAdapter(chatListAdapter);
-    }
-
-
-    public void goToContacts(View view){
-        Intent intent = new Intent (this, ContactsActivity.class);
-        startActivity(intent);
-    }
-    public void goToProfile(View view){
-        Intent intent = new Intent (this, ProfileActivity.class);
-        startActivity(intent);
-    }
-    public void goToSettings(View view){
-        Intent intent = new Intent (this, SettingsActivity.class);
-        startActivity(intent);
     }
     private void getPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
