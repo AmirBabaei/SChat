@@ -6,15 +6,6 @@ public class MessageObject
 {
     String  messageId, senderId, message, time, CreatorName;
     ArrayList<String> mediaUrLList;
-
-    public MessageObject(String messageId, String senderId, String message, ArrayList<String> mediaUrLList, String time)
-    {
-        this.messageId = messageId;
-        this.senderId = senderId;
-        this.message = message;
-        this.mediaUrLList = mediaUrLList;
-        this.time = time;
-    }
     public MessageObject(String messageId, String senderId, String message, ArrayList<String> mediaUrLList, String time, String CreatorName)
     {
         this.messageId = messageId;

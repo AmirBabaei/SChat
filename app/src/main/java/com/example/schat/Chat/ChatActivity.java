@@ -14,9 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.example.schat.Chat.MediaAdapter;
-import com.example.schat.Chat.MessageAdapter;
-import com.example.schat.Chat.MessageObject;
 import com.example.schat.Encryption.Encryption;
 import com.example.schat.R;
 import com.example.schat.User.UserObject;
@@ -59,7 +56,6 @@ public class ChatActivity extends AppCompatActivity {
     Map userMap;
 
     ChatObject mChatObject;
-    Date messageTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,8 +224,6 @@ public class ChatActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        //messageTime = Calendar.getInstance().getTime();
-        //newMessageMap.put("time", messageTime.toString() );
 
 
         if(!mediaUriList.isEmpty()){

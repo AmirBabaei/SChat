@@ -33,7 +33,6 @@ public class ProfileActivity extends AppCompatActivity {
     Button update;
     TextView nameView, lastView, emailView;
     DatabaseReference userDb;
-    String name, last, email;
     ImageView profimg;
     Uri ImageUri;
 
@@ -61,11 +60,9 @@ public class ProfileActivity extends AppCompatActivity {
         imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.d("Image stuff", "were in the glide block  "   + imagesRef.getDownloadUrl() );
             Glide.with(context /* context */)
                     .load(uri)
                     .into(profimg);
-            Log.d("Image stuff", "image should be set" );
             }
         });
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {

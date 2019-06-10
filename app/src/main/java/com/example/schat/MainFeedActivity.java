@@ -114,7 +114,6 @@ public class MainFeedActivity extends AppCompatActivity {
                             continue;
                         chatList.add(mChat);
                         getChatData(mChat.getChatId());
-                        //chatListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -207,8 +206,6 @@ public class MainFeedActivity extends AppCompatActivity {
 
     }
 
-
-
     private void initializeRecyclerView() {
         chatList = new ArrayList<>();
         chatListView = findViewById(R.id.chatList);
@@ -220,19 +217,6 @@ public class MainFeedActivity extends AppCompatActivity {
         chatListView.setAdapter(chatListAdapter);
     }
 
-
-    public void goToContacts(View view){
-        Intent intent = new Intent (this, ContactsActivity.class);
-        startActivity(intent);
-    }
-    public void goToProfile(View view){
-        Intent intent = new Intent (this, ProfileActivity.class);
-        startActivity(intent);
-    }
-    public void goToSettings(View view){
-        Intent intent = new Intent (this, SettingsActivity.class);
-        startActivity(intent);
-    }
     private void getPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);

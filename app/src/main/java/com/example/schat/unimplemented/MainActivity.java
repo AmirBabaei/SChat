@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mPhoneNumber, mCode;
     private Button mSend;
-    private EditText mEmail, mPassword;
-    private Button mLoginEmail;
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
@@ -48,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         userIsLoggedIn();
-
-
-
-
 
 
         mPhoneNumber = findViewById(R.id.phoneNumberEntry);
@@ -155,12 +149,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void goToFeed(View view){
-        Intent intent = new Intent (this, MainFeedActivity.class);
-        startActivity(intent);
-    }
-    public void goToContacts(View view){
-        Intent intent = new Intent (this, ContactsActivity.class);
-        startActivity(intent);
-    }
 }
