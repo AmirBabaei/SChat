@@ -206,6 +206,12 @@ public class MainFeedActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+// empty so nothing happens
+    }
+
+
     private void initializeRecyclerView() {
         chatList = new ArrayList<>();
         chatListView = findViewById(R.id.chatList);
@@ -216,7 +222,6 @@ public class MainFeedActivity extends AppCompatActivity {
         chatListAdapter = new ChatListAdapter(chatList);
         chatListView.setAdapter(chatListAdapter);
     }
-
     private void getPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
